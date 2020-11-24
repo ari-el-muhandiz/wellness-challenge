@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -12,7 +13,7 @@ var app = express();
 // connect mongodb
 const MongoClient = require('mongodb').MongoClient;
 // mongo atlas free tier for demo purposes
-const uri = "mongodb+srv://q1Oi8zVKeMvU4P3N:admin1234@cluster0.ugqo5.mongodb.net/demo_wellness?retryWrites=true&w=majority";
+const uri = process.env.DB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true,  useUnifiedTopology: true });
 
 // view engine setup
