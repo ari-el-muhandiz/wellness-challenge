@@ -36,7 +36,6 @@ client.connect(err => {
   const db = client.db("demo_wellness");
   // here to get total user
   app.get('/userView', async (req, res) => {
-    const productId = req.params.productId;
     const pipeline = [
       {
         '$group': {
@@ -62,7 +61,6 @@ client.connect(err => {
     const productId = req.params.productId;
     const filterDate = req.query.filterDate;
     // date query based on filter(daily, weekly, monthly, custom date)
-
     const pipeline =[
       {
         '$match': {
@@ -84,13 +82,11 @@ client.connect(err => {
         }
       }, {
         '$group': {
-          '_id': '$UserId', 
-          'viewDate': { '$push': "$ViewDate" },
-          'productIds': { '$push': "$ProductId" },
-          'totalUsers': {
-            '$sum': 1
-          }
+          '_id': '$UserId'
         }
+      },
+      {
+        '$count': 'total_users'
       }
     ]
    console.log(moment().startOf('month').toDate());
